@@ -1,0 +1,20 @@
+@relation data_trapuesta_sis
+
+@attribute edad {19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43}
+@attribute genero {1,0}
+@attribute estado_civil {1,0}
+@attribute etnia {0,1,2,3,4,5,6}
+@attribute sector_procedencia {1,0}
+@attribute provincia_nacimiento {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24}
+@attribute trabaja {1,0}
+@attribute ingreso_estudiante {1,0}
+@attribute numero_hijos{1,0}
+@attribute tipo_colegio {1,2,3}
+@attribute QUIMICA {0,1}
+@attribute EXPRESION_ORAL_Y_ESCRITA {0,1}
+@attribute CALCULO_DIFERENCIAL {0,1}
+@attribute FISICA_I {0,1}
+@attribute FUNDAMENTOS_INFORMATICOS {0,1}
+@attribute GEOMETRIA_PLANA {0,1}
+
+@data
