@@ -11,7 +11,7 @@ import datetime as dt
 df = pd.DataFrame()
 def _loadCsv():
   global df
-  df = pd.read_csv('data/data_inicial_completa.csv')
+  df = pd.read_csv('data_inicial_completa.csv')
 _loadCsv()
 df.shape
 

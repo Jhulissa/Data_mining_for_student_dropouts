@@ -10,7 +10,7 @@ import pandas as pd
 df = pd.DataFrame()
 def _loadCsv():
   global df
-  df = pd.read_csv('data/ciclos_1/computación_1.csv')
+  df = pd.read_csv('computación_1.csv')
 _loadCsv()
 df.shape
 

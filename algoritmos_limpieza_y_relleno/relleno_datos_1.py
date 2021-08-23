@@ -15,7 +15,7 @@ from numpy.random import permutation
 import numpy as np
 from sklearn.neighbors import KNeighborsRegressor
 
-with open("data/dataset_origen.csv", 'r') as csvfile:
+with open("dataset_origen.csv", 'r') as csvfile:
     ciclo = pandas.read_csv(csvfile)
 
 distance_columns = ciclo.columns

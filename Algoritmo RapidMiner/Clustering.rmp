@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?><process version="9.9.002">
+  <context>
+    <input/>
+    <output/>
+    <macros/>
+  </context>
+  <operator activated="true" class="process" compatibility="9.9.002" expanded="true" name="Process">
+    <parameter key="logverbosity" value="init"/>
+    <parameter key="random_seed" value="2001"/>
+    <parameter key="send_mail" value="never"/>
+    <parameter key="notification_email" value=""/>
+    <parameter key="process_duration_for_mail" value="30"/>
+    <parameter key="encoding" value="SYSTEM"/>
+    <process expanded="true">
+      <operator activated="true" class="retrieve" compatibility="9.9.002" expanded="true" height="68" name="Retrieve compu_04_prueba" width="90" x="45" y="34">
+        <parameter key="repository_entry" value="compu_04_prueba"/>
+      </operator>
+      <operator activated="true" class="normalize" compatibility="9.9.002" expanded="true" height="103" name="Normalize" width="90" x="179" y="34">
+        <parameter key="return_preprocessing_model" value="false"/>
+        <parameter key="create_view" value="false"/>
+        <parameter key="attribute_filter_type" value="all"/>
+        <parameter key="attribute" value=""/>
+        <parameter key="attributes" value=""/>
+        <parameter key="use_except_expression" value="false"/>
+        <parameter key="value_type" value="numeric"/>
+        <parameter key="use_value_type_exception" value="false"/>
+        <parameter key="except_value_type" value="real"/>
+        <parameter key="block_type" value="value_series"/>
+        <parameter key="use_block_type_exception" value="false"/>
+        <parameter key="except_block_type" value="value_series_end"/>
+        <parameter key="invert_selection" value="false"/>
+        <parameter key="include_special_attributes" value="true"/>
+        <parameter key="method" value="Z-transformation"/>
+        <parameter key="min" value="0.0"/>
+        <parameter key="max" value="1.0"/>
+        <parameter key="allow_negative_values" value="false"/>
+      </operator>
+      <operator activated="true" class="parse_numbers" compatibility="9.9.002" expanded="true" height="82" name="Parse Numbers" width="90" x="313" y="34">
+        <parameter key="attribute_filter_type" value="all"/>
+        <parameter key="attribute" value=""/>
+        <parameter key="attributes" value=""/>
+        <parameter key="use_except_expression" value="false"/>
+        <parameter key="value_type" value="nominal"/>
+        <parameter key="use_value_type_exception" value="false"/>
+        <parameter key="except_value_type" value="file_path"/>
+        <parameter key="block_type" value="single_value"/>
+        <parameter key="use_block_type_exception" value="false"/>
+        <parameter key="except_block_type" value="single_value"/>
+        <parameter key="invert_selection" value="false"/>
+        <parameter key="include_special_attributes" value="false"/>
+        <parameter key="decimal_character" value="."/>
+        <parameter key="grouped_digits" value="false"/>
+        <parameter key="grouping_character" value=","/>
+        <parameter key="infinity_representation" value=""/>
+        <parameter key="unparsable_value_handling" value="fail"/>
+      </operator>
+      <operator activated="true" class="concurrency:k_means" compatibility="9.9.002" expanded="true" height="82" name="Clustering" width="90" x="447" y="34">
+        <parameter key="add_cluster_attribute" value="true"/>
+        <parameter key="add_as_label" value="false"/>
+        <parameter key="remove_unlabeled" value="true"/>
+        <parameter key="k" value="5"/>
+        <parameter key="max_runs" value="10"/>
+        <parameter key="determine_good_start_values" value="true"/>
+        <parameter key="measure_types" value="BregmanDivergences"/>
+        <parameter key="mixed_measure" value="MixedEuclideanDistance"/>
+        <parameter key="nominal_measure" value="NominalDistance"/>
+        <parameter key="numerical_measure" value="EuclideanDistance"/>
+        <parameter key="divergence" value="SquaredEuclideanDistance"/>
+        <parameter key="kernel_type" value="radial"/>
+        <parameter key="kernel_gamma" value="1.0"/>
+        <parameter key="kernel_sigma1" value="1.0"/>
+        <parameter key="kernel_sigma2" value="0.0"/>
+        <parameter key="kernel_sigma3" value="2.0"/>
+        <parameter key="kernel_degree" value="3.0"/>
+        <parameter key="kernel_shift" value="1.0"/>
+        <parameter key="kernel_a" value="1.0"/>
+        <parameter key="kernel_b" value="0.0"/>
+        <parameter key="max_optimization_steps" value="100"/>
+        <parameter key="use_local_random_seed" value="false"/>
+        <parameter key="local_random_seed" value="1992"/>
+      </operator>
+      <operator activated="true" class="cluster_distance_performance" compatibility="9.9.002" expanded="true" height="103" name="Performance" width="90" x="581" y="34">
+        <parameter key="main_criterion" value="Avg. within centroid distance"/>
+        <parameter key="main_criterion_only" value="false"/>
+        <parameter key="normalize" value="false"/>
+        <parameter key="maximize" value="false"/>
+      </operator>
+      <connect from_op="Retrieve compu_04_prueba" from_port="output" to_op="Normalize" to_port="example set input"/>
+      <connect from_op="Normalize" from_port="example set output" to_op="Parse Numbers" to_port="example set input"/>
+      <connect from_op="Parse Numbers" from_port="example set output" to_op="Clustering" to_port="example set"/>
+      <connect from_op="Clustering" from_port="cluster model" to_op="Performance" to_port="cluster model"/>
+      <connect from_op="Clustering" from_port="clustered set" to_op="Performance" to_port="example set"/>
+      <connect from_op="Performance" from_port="performance" to_port="result 2"/>
+      <connect from_op="Performance" from_port="example set" to_port="result 1"/>
+      <portSpacing port="source_input 1" spacing="0"/>
+      <portSpacing port="sink_result 1" spacing="0"/>
+      <portSpacing port="sink_result 2" spacing="0"/>
+      <portSpacing port="sink_result 3" spacing="0"/>
+    </process>
+  </operator>
+</process>
